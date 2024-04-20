@@ -171,8 +171,8 @@ function getUserInformation() {
 
 		                // Redirect after 5 seconds
 		                setTimeout(() => {
-		                    window.location.href = "index.html";
-		                }, 5000);
+		                    window.location.href = "index.jsp";
+		                }, 1000);
 		            } else {
 		                console.error("Failed to delete user");
 		            }
