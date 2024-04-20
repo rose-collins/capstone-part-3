@@ -60,9 +60,9 @@ public class SignUpServelet extends HttpServlet{
         
         //rends redirect based of success boolean value
         if (success) {
-            response.sendRedirect("SuccessOrErrorSignup.html?success=true");
+            response.sendRedirect("successError.jsp?success=true");
         } else {
-            response.sendRedirect("SuccessOrErrorSignup.html?success=false");
+            response.sendRedirect("successError.jsp?success=false");
         }
 	}
 
