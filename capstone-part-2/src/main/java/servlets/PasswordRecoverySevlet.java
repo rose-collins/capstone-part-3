@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.DAO;
+import dao.DAOFactory;
 import model.User;
 
 @WebServlet("/passwordRecovery")
@@ -43,8 +44,9 @@ public class PasswordRecoverySevlet extends HttpServlet{
 	        }
 	    }
 
-	    DAO dao = new DAO();
-	    User user = dao.getUserByEmail(email);
+	    @SuppressWarnings("unchecked")
+		DAO<User> userDAO = (DAO<User>) DAOFactory.getDAO(DAOFactory.DAOType.USER);
+	    User user = userDAO.read(email);
 	    
 	    // If email exists
 	    if (user != null) { 

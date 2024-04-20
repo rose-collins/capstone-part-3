@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.DAO;
+import dao.DAOFactory;
+import dao.UserDAO;
+import model.User;
 
 @WebServlet("/signIn")
 public class SignInServlet extends HttpServlet{
@@ -25,15 +28,16 @@ public class SignInServlet extends HttpServlet{
 		String password = request.getParameter("password");
 		
 		//call DAO class to see if user credentials exist. (validate user is a DAO method that is a sql query for user info)
-	    boolean isValidUser = DAO.validateUserSignIn(email, password);
+	    boolean isValidUser = UserDAO.validateUserSignIn(email, password);
 
 	    System.out.println("checking if user exists");
 	    if (isValidUser) {
 	    	//instance of DAO
-	        DAO dao = new DAO();
+			@SuppressWarnings("unchecked")
+			DAO<User> userDAO = (DAO<User>) DAOFactory.getDAO(DAOFactory.DAOType.USER);
 	        
 	        //get user type from DAO based on email
-	        String userType = dao.getUserTypeByEmail(email);
+	        String userType = ((UserDAO) userDAO).getUserTypeByEmail(email);
 
 	        //check if userType is not null
 	        if (userType != null) {

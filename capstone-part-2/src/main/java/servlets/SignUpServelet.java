@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.DAO;
+import dao.DAOFactory;
 import model.User;
 
 @WebServlet("/signUp")
@@ -51,9 +52,10 @@ public class SignUpServelet extends HttpServlet{
 
 		//write new user to DB (call the DAO class)
         System.out.println("New instance, DAO object");
-        DAO dao = new DAO();
+		@SuppressWarnings("unchecked")
+		DAO<User> userDAO = (DAO<User>) DAOFactory.getDAO(DAOFactory.DAOType.USER);
         
-        boolean success = dao.createUser(user);
+        boolean success = userDAO.create(user);
         System.out.println("User created: " + success);
         
         //rends redirect based of success boolean value

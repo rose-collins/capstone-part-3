@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.DAO;
+import dao.DAOFactory;
 import model.User;
 
 @WebServlet("/user")
@@ -31,8 +32,9 @@ public class UserServlet extends HttpServlet{
 	    String requestEmail = request.getParameter("email");
 	    System.out.println("Request Email: " + requestEmail);  // Print request email
 
-	    DAO dao = new DAO();
-	    User user = dao.getUserByEmail(requestEmail);  // Call the DAO method to get the user details
+		@SuppressWarnings("unchecked")
+		DAO<User> userDAO = (DAO<User>) DAOFactory.getDAO(DAOFactory.DAOType.USER);
+	    User user = userDAO.read(requestEmail);  // Call the DAO method to get the user details
 
 	    // Check if user exists
 	    if (user != null) {
@@ -95,10 +97,11 @@ public class UserServlet extends HttpServlet{
 	    user.setPhoneNumber(phoneNumber);
 	    user.setUserType(userType);
 
-	    DAO dao = new DAO();
+		@SuppressWarnings("unchecked")
+		DAO<User> userDAO = (DAO<User>) DAOFactory.getDAO(DAOFactory.DAOType.USER);
 
 	    //call updateUser method from DAO to update the user in the db
-	    boolean updated = dao.updateUser(user);
+	    boolean updated = userDAO.update(user);
 
 	    //handle the response based on the result of the update
 	    if (updated) {
@@ -114,10 +117,11 @@ public class UserServlet extends HttpServlet{
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//get user email from the request
 	    String email = request.getParameter("email");
-	    DAO dao = new DAO();
+		@SuppressWarnings("unchecked")
+		DAO<User> userDAO = (DAO<User>) DAOFactory.getDAO(DAOFactory.DAOType.USER);
 
 	    //deleteUser method from DAO to delete the user from the db
-	    boolean deleted = dao.deleteUser(email);
+	    boolean deleted = userDAO.delete(email);
 
 	    //if successfully deleted or not
 	    if (deleted) {
