@@ -44,10 +44,10 @@ public class SignInServlet extends HttpServlet{
 	            //and if so, redirect user to appropriate page based on userType
 	            if ("farmer".equals(userType)) {
 	                //redirect to farmer page
-	                response.sendRedirect("FarmerPage.html");
+	                response.sendRedirect("farmer.jsp");
 	            } else if ("customer".equals(userType)) {
 	                //redirect to customer page
-	                response.sendRedirect("CustomerPage.html");
+	                response.sendRedirect("customer.jsp");
 	            }
 	        } else {
 	            //handle no user with provided email exists
