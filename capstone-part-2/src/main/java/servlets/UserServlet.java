@@ -130,7 +130,7 @@ public class UserServlet extends HttpServlet{
 	        response.getWriter().write("Account successfully deleted");
 
 	        // Redirect after 5 seconds
-	        response.setHeader("Refresh", "5; URL=landingpage.html");
+	        response.setHeader("Refresh", "1; URL=index.jsp");
 	    } else {
 	        response.getWriter().write("Failed to delete user");
 	    }
